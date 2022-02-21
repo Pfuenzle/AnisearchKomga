@@ -57,10 +57,8 @@ docker run \
   --name anisearchkomga \
   pfuenzle/anisearchkomga:latest
 ```
-<<<<<<< HEAD
+
 You can also use the optional environment variable `MANGAS="Manga1,Manga2"` to give a comma seperated list of mangas which are supposed to be updated. If it is left blank, every manga will be updated.
 
 Hint: Replace "\" with "`"  when using Powershell
-=======
-Hint: Replace "\" with "`"  when using Powershell
->>>>>>> f0480e72f5a660ab534d48f1bd94d2e4e9da5771
+
