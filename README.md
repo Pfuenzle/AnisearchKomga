@@ -1,7 +1,7 @@
 # Anisearch metadata scraper for Komga
 
 ## Introduction
-This Script gets a list of ever manga available on your Komga instance,
+This Script gets a list of every manga available on your Komga instance,
 looks it up one after another on [Anisearch](https://www.anisearch.com/) and gets the metadata for the specific series.
 This metadata then gets converted to be compatible to Komga and then gets sent to the server instance and added to the manga entry.
 
