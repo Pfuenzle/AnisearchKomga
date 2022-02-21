@@ -1,0 +1,5 @@
+config.py
+log.txt
+failed.txt
+__pycache__/
+.idea/

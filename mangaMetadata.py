@@ -27,6 +27,10 @@ try:
     ENV_LANG = os.environ['LANGUAGE']
 except:
     ENV_LANG = ""
+try:
+    ENV_MANGAS = os.environ['MANGAS']
+except:
+    ENV_MANGAS = ""
 
 if (ENV_URL == "" and ENV_EMAIL == "" and ENV_PASS == "" and ENV_LANG == ""):
     try:
@@ -39,6 +43,11 @@ elif (ENV_URL != "" and ENV_EMAIL != "" and ENV_PASS != "" and ENV_LANG != ""):
     komgaemail = ENV_EMAIL
     komgapassword = ENV_PASS
     anisearchlang = ENV_LANG
+    mangas = []
+    for manga in ENV_MANGAS.split(","):
+        if(manga[:1] == " "):
+            manga = manga[1:]
+        mangas.append(manga)
 else:
     print("Looks like either you are trying to set the configuration using environment variables or you are using docker.")
     if(ENV_URL == ""):
@@ -374,6 +383,9 @@ failed = []
 failedfile = open("failed.txt", "w")
 for series in json_string['content']:
     seriesnum += 1
+    if(len(mangas) > 0):
+        if(series['name'] not in mangas):
+            continue
     print("Number: " + str(seriesnum) + "/" + str(expected))
     name = series['name']
     seriesID = series['id']

@@ -41,7 +41,8 @@ I tried to test the languages as best as I could, but if I missed something plea
 
 1. Install the requirements using `pip install -r requirements.txt`
 2. Init Playwright using `playwright install`
-3. Rename `config.template.py` to `config.py` and edit the url, email and password to match the ones of your komga instance (User needs to have permission to edit the metadata)
+3. Rename `config.template.py` to `config.py` and edit the url, email and password to match the ones of your komga instance (User needs to have permission to edit the metadata).
+The "mangas" array can be filled with the names of mangas which are supposed to be updated, if it is left empty every manga will be updated.
 4. Run the script using `python mangaMetadata.py`
 
 
@@ -56,4 +57,6 @@ docker run \
   --name anisearchkomga \
   pfuenzle/anisearchkomga:latest
 ```
+You can also use the optional environment variable `MANGAS="Manga1,Manga2"` to give a comma seperated list of mangas which are supposed to be updated. If it is left blank, every manga will be updated.
+
 Hint: Replace "\" with "`"  when using Powershell
