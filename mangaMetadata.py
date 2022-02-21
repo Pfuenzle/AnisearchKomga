@@ -30,7 +30,7 @@ except:
 try:
     ENV_MANGAS = os.environ['MANGAS']
 except:
-    ENV_MANGAS = ""
+    ENV_MANGAS = "NONE"
 
 if (ENV_URL == "" and ENV_EMAIL == "" and ENV_PASS == "" and ENV_LANG == ""):
     try:
@@ -44,10 +44,11 @@ elif (ENV_URL != "" and ENV_EMAIL != "" and ENV_PASS != "" and ENV_LANG != ""):
     komgapassword = ENV_PASS
     anisearchlang = ENV_LANG
     mangas = []
-    for manga in ENV_MANGAS.split(","):
-        if(manga[:1] == " "):
-            manga = manga[1:]
-        mangas.append(manga)
+    if(ENV_MANGAS != "NONE"):
+        for manga in ENV_MANGAS.split(","):
+            if(manga[:1] == " "):
+                manga = manga[1:]
+            mangas.append(manga)
 else:
     print("Looks like either you are trying to set the configuration using environment variables or you are using docker.")
     if(ENV_URL == ""):
@@ -368,8 +369,10 @@ x = requests.get(komgaurl + '/api/v1/series?size=50000', auth = (komgaemail, kom
 json_string = json.loads(x.text)
 
 seriesnum = 0
-expected = json_string['numberOfElements']
-
+try:
+    expected = json_string['numberOfElements']
+except:
+    print("Failed to get list of mangas, are the login infos correct?")
 print("Series to do: ")
 print(expected)
 
