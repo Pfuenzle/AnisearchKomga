@@ -373,6 +373,8 @@ try:
     expected = json_string['numberOfElements']
 except:
     print("Failed to get list of mangas, are the login infos correct?")
+    sys.exit(1)
+
 print("Series to do: ")
 print(expected)
 
