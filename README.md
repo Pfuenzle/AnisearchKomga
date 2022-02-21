@@ -1,7 +1,7 @@
 # Anisearch metadata scraper for Komga
 
 ## Introduction
-This Script gets a list of ever manga available on your Komga instance,
+This Script gets a list of every manga available on your Komga instance,
 looks it up one after another on [Anisearch](https://www.anisearch.com/) and gets the metadata for the specific series.
 This metadata then gets converted to be compatible to Komga and then gets sent to the server instance and added to the manga entry.
 
@@ -57,6 +57,10 @@ docker run \
   --name anisearchkomga \
   pfuenzle/anisearchkomga:latest
 ```
+<<<<<<< HEAD
 You can also use the optional environment variable `MANGAS="Manga1,Manga2"` to give a comma seperated list of mangas which are supposed to be updated. If it is left blank, every manga will be updated.
 
 Hint: Replace "\" with "`"  when using Powershell
+=======
+Hint: Replace "\" with "`"  when using Powershell
+>>>>>>> f0480e72f5a660ab534d48f1bd94d2e4e9da5771
