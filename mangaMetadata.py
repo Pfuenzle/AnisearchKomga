@@ -31,6 +31,15 @@ try:
     ENV_MANGAS = os.environ['MANGAS']
 except:
     ENV_MANGAS = "NONE"
+try:
+    ENV_PROGRESS = os.environ['KEEPPROGRESS']
+    if(ENV_PROGRESS.lower() == "true"):
+        ENV_PROGRESS = True
+    else:
+        ENV_PROGRESS = False
+except:
+    ENV_PROGRESS = False
+
 
 if (ENV_URL == "" and ENV_EMAIL == "" and ENV_PASS == "" and ENV_LANG == ""):
     try:
@@ -43,6 +52,7 @@ elif (ENV_URL != "" and ENV_EMAIL != "" and ENV_PASS != "" and ENV_LANG != ""):
     komgaemail = ENV_EMAIL
     komgapassword = ENV_PASS
     anisearchlang = ENV_LANG
+    keepProgress = ENV_PROGRESS
     mangas = []
     if(ENV_MANGAS != "NONE"):
         for manga in ENV_MANGAS.split(","):
@@ -362,7 +372,7 @@ page = browser.new_page()
 page.goto(getBaseURL())
 
 
-print("Using user" + komgaemail)
+print("Using user " + komgaemail)
 
 x = requests.get(komgaurl + '/api/v1/series?size=50000', auth = (komgaemail, komgapassword))
 
@@ -385,6 +395,25 @@ class failedtries():
 
 failed = []
 
+progressfilename = "mangas.progress"
+
+def addMangaProgress(seriesID):
+    if(keepProgress == False):
+        return
+    progfile = open(progressfilename, "a+")
+    progfile.write(str(seriesID) + "\n")
+    progfile.close()
+
+
+progresslist = []
+if(keepProgress):
+    print("Loading list of successfully updated mangas")
+    try:
+        with open(progressfilename) as file:
+            progresslist = [line.rstrip() for line in file]
+    except:
+        print("Failed to load list of mangas")
+
 failedfile = open("failed.txt", "w")
 for series in json_string['content']:
     seriesnum += 1
@@ -394,6 +423,9 @@ for series in json_string['content']:
     print("Number: " + str(seriesnum) + "/" + str(expected))
     name = series['name']
     seriesID = series['id']
+    if(str(seriesID) in progresslist):
+        print("Manga " + str(name) + " was already updated, skipping...")
+        continue
     print("Updating: " + str(name))
     md = getMangaMetadata(name)
     if(md.isvalid == False):
@@ -427,6 +459,7 @@ for series in json_string['content']:
         print("----------------------------------------------------")
         print("Successfully updated " + str(name))
         print("----------------------------------------------------")
+        addMangaProgress(seriesID)
         time.sleep(10)
     else:
         try:
@@ -472,10 +505,12 @@ for f in failed:
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
         print("Successfully updated " + str(f.name))
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        addMangaProgress(seriesID)
         time.sleep(10)
     else:
         print("----------------------------------------------------")
         print("Failed again to update " + str(f.name) + ", not trying again")
         print("----------------------------------------------------")
+        addMangaProgress(seriesID)
         time.sleep(10)
         continue
