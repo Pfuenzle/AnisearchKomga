@@ -60,6 +60,8 @@ docker run \
 ```
 Hint: Replace \ with `  when using Powershell
 
+Alternatively, you could run the docker-compose to get a running container with progress tracking
+
 ### Additional Environment Variables
 - `MANGAS="Manga1,Manga2"` - This can be used to give a comma seperated list of mangas which are supposed to be updated. If it is left blank, every manga will be updated.
 - `KEEPPROGRESS=True` - This can be set to either true or false. If it is set to true, a list of all successfully updated mangas will be saved and mangas in this list will not be updated on the next run. If you want to persist the list on the disk, you have to also add a volume as following: `-v /path/to/mangas.progress:/app/mangas.progress`, where `/path/to/mangas.progress` has to be replaced with the path to an empty existing file.

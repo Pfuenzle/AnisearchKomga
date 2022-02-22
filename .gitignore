@@ -4,3 +4,4 @@ failed.txt
 __pycache__/
 .idea/
 mangas.progress
+mydocker-compose.yml
