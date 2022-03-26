@@ -200,12 +200,20 @@ def getMangaMetadata(query):
             flag = html_dom.xpath("//*[@id=\"information\"]/div/ul/li[2]/ul/li[" + str(index) + "]/div[1]/img/@title")[0]
             if(flag == getFlagLanguage()):
                 rightIndex = index
+                if (anisearchlang == "Japanese"):
+                    statusIndex = 3
+                    publisherIndex = 6
+                else:
+                    statusIndex = 2
+                    publisherIndex = 5
 #                print("Found correct Language, index is " + str(rightIndex))
                 langRunning = False
                 break
             index += 1
         except Exception as e:
             langRunning = False
+            statusIndex = 3
+            publisherIndex = 6
             break
 
     if(rightIndex == -1):
@@ -216,11 +224,11 @@ def getMangaMetadata(query):
 
     #getStatus
     try:
-        status = html_dom.xpath("//*[@id=\"information\"]/div/ul/li[2]/ul/li[" + rightIndex + "]/div[2]")[0].itertext()
+        status = html_dom.xpath("//*[@id=\"information\"]/div/ul/li[2]/ul/li[" + rightIndex + "]/div[" + str(statusIndex) + "]")[0].itertext()
         status = ''.join(status).split(": ")[1]
     except Exception as e:
         try:
-            status = html_dom.xpath("//*[@id=\"information\"]/div/ul/li[2]/ul/li[1]/div[2]")[0].itertext()
+            status = html_dom.xpath("//*[@id=\"information\"]/div/ul/li[2]/ul/li[1]/div[3]")[0].itertext()
             status = ''.join(status).split(": ")[1]
         except Exception as e:
             print(e)
@@ -306,11 +314,11 @@ def getMangaMetadata(query):
 
     #getPublisher
     try:
-        publisher = html_dom.xpath("//*[@id=\"information\"]/div/ul/li[2]/ul/li[" + rightIndex + "]/div[5]")[0].itertext()
+        publisher = html_dom.xpath("//*[@id=\"information\"]/div/ul/li[2]/ul/li[" + rightIndex + "]/div[" + str(publisherIndex) + "]")[0].itertext()
         publisher = ''.join(publisher)
     except Exception as e:
         try:
-            publisher = html_dom.xpath("//*[@id=\"information\"]/div/ul/li[2]/ul/li[1]/div[5]")[0].itertext()
+            publisher = html_dom.xpath("//*[@id=\"information\"]/div/ul/li[2]/ul/li[1]/div[6]")[0].itertext()
             publisher = ''.join(publisher)
         except Exception as e:
             print(e)
