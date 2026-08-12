@@ -5,9 +5,14 @@ services:
     image: pfuenzle/anisearchkomga
     environment:
       - KOMGAURL=https://komga.com
-      - KOMGAEMAIL=adminemail@komga.com
-      - KOMGAPASSWORD=12345
+      - KOMGAAPIKEY=your-komga-api-key
       - LANGUAGE=German
       - KEEPPROGRESS=True
+      # - SOURCES=Anisearch,Mangacore
+      # - MANGACOREAPIKEY=your-mangacore-api-token
+      # - INTERVALDAYS=7
+      # - LIBRARIES=0R97P8BCFXQYG
+      # - DAEMON=1
+    # restart: unless-stopped  # recommended once INTERVALDAYS or DAEMON is set, so the container survives crashes/reboots
     volumes:
       - ./mangas.progress:/app/mangas.progress
