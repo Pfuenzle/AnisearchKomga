@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:focal
+FROM mcr.microsoft.com/playwright/python:v1.61.0-noble
 
 RUN useradd -ms /bin/bash crawler
 
